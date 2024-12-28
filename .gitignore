@@ -5,8 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
-
-test.py
+dev-test.py
 l360.token
 
 # Distribution / packaging
