@@ -1,6 +1,6 @@
-![Static Badge](https://img.shields.io/badge/0.1.5-green?logo=%5C&label=PyPI&link=https%3A%2F%2Fpypi.org%2Fproject%2FPyL360%2F)
 
-# PyL360 
+
+# PyL360 ![Static Badge](https://img.shields.io/badge/0.1.5-green?logo=%5C&label=PyPI&link=https%3A%2F%2Fpypi.org%2Fproject%2FPyL360%2F)
 
 This is a Python library to interact with Life360, primarily to read data.
 
