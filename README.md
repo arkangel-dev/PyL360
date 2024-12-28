@@ -1,14 +1,12 @@
-# PyL360
+![Static Badge](https://img.shields.io/badge/0.1.5-green?logo=%5C&label=PyPI&link=https%3A%2F%2Fpypi.org%2Fproject%2FPyL360%2F)
+
+# PyL360 
+
 This is a Python library to interact with Life360, primarily to read data.
 
 
 ## Usage
-```shell
-pip install PyL360
-```
-
-
-Example to print out a list of all users and their current location in all your circles
+First install the package by running `pip install PyL360`. Example to print out a list of all users and their current location in all your circles
 ```py
 from PyL360 import L360Client
 
@@ -31,16 +29,17 @@ Example to print out a list of all the places in all your circles along with the
 ```py
 from PyL360 import L360Client
 
-client = L360Client(
-    username="sammy@gmail.com",
-    password="my-secure-password"
-)
+if __name__ == '__main__':
+    client = L360Client(
+        username="sammy@gmail.com",
+        password="my-secure-password"
+    )
 
-client.Authenticate()
-circles = client.GetCircles().circles
+    client.Authenticate()
+    circles = client.GetCircles().circles
 
-for circle in circles:
-    for place in client.GetPlaces(circle.id).places:
-        print('{} is loacated at ({}, {})'.format(place.name, place.latitude, place.longitude))
+    for circle in circles:
+        for place in client.GetPlaces(circle.id).places:
+            print('{} is loacated at ({}, {})'.format(place.name, place.latitude, place.longitude))
 ```
 
