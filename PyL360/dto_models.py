@@ -85,7 +85,7 @@ class DtoModels:
 	class Member:
 		features: 'DtoModels.MemberFeatures'
 		issues: 'DtoModels.MemberIssues'
-		location: 'DtoModels.Location'
+		location: 'Optional[DtoModels.Location]'
 		communications: 'List[DtoModels.CommunicationChannels]'
 		medical: Optional[str]
 		relation: Optional[str]
