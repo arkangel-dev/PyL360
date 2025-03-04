@@ -7,7 +7,7 @@ from dacite import from_dict, Config
 import os
 import tls_client
 import logging
-
+from dacite.exceptions import WrongTypeError
 
 class L360Client:
 	_username: str
@@ -97,11 +97,14 @@ class L360Client:
 			return None
 
 		# Deserialize the json response
-		response = from_dict(
-			data_class=DtoModels.AuthenticationResponseDtoModel,
-			data=result.json(),
-			config=Config(strict_unions_match=False),
-		)
+		try:
+			response = from_dict(
+				data_class=DtoModels.AuthenticationResponseDtoModel,
+				data=result.json(),
+				config=Config(strict_unions_match=False),
+			)
+		except WrongTypeError as e:
+			self._printTypeError(e, result.json())
 
 		# Combinee the new token and set it as the Authorization
 		# header and try to save it to fine
@@ -125,11 +128,14 @@ class L360Client:
 		result = session.get(
 			url=self._getUrl("/v4/circles"), headers=self._getHeaders()
 		)
-		response = from_dict(
-			data_class=DtoModels.GetCirclesResponse,
-			data=result.json(),
-			config=Config(strict_unions_match=False),
-		)
+		try:
+			response = from_dict(
+				data_class=DtoModels.GetCirclesResponse,
+				data=result.json(),
+				config=Config(strict_unions_match=False),
+			)
+		except WrongTypeError as e:
+			self._printTypeError(e, result.json())
 		for x in response.circles: x._client = self
 		return response
 
@@ -139,12 +145,14 @@ class L360Client:
 			url=self._getUrl("/v3/circles/{}".format(circleid)),
 			headers=self._getHeaders(),
 		)
-
-		response = from_dict(
-			data_class=DtoModels.Circle,
-			data=result.json(),
-			config=Config(strict_unions_match=False),
-		)
+		try:
+			response = from_dict(
+				data_class=DtoModels.Circle,
+				data=result.json(),
+				config=Config(strict_unions_match=False),
+			)
+		except WrongTypeError as e:
+			self._printTypeError(e, result.json())
 		return response
 
 	def GetPlaces(self, circleid: str) -> DtoModels.GetPlacesResponseModel:
@@ -153,12 +161,14 @@ class L360Client:
 			url=self._getUrl("/v3/circles/{}/places".format(circleid)),
 			headers=self._getHeaders(),
 		)
-
-		response = from_dict(
-			data_class=DtoModels.GetPlacesResponseModel,
-			data=result.json(),
-			config=Config(strict_unions_match=False),
-		)
+		try:
+			response = from_dict(
+				data_class=DtoModels.GetPlacesResponseModel,
+				data=result.json(),
+				config=Config(strict_unions_match=False),
+			)
+		except WrongTypeError as e:
+			self._printTypeError(e, result.json())
 		return response
 
 	def GetPlace(self, circleid: str, placeid: str) -> DtoModels.Place:
@@ -167,12 +177,14 @@ class L360Client:
 			url=self._getUrl("/v3/circles/{}/places/{}".format(circleid, placeid)),
 			headers=self._getHeaders(),
 		)
-
-		response = from_dict(
-			data_class=DtoModels.Place,
-			data=result.json(),
-			config=Config(strict_unions_match=False),
-		)
+		try:
+			response = from_dict(
+				data_class=DtoModels.Place,
+				data=result.json(),
+				config=Config(strict_unions_match=False),
+			)
+		except WrongTypeError as e:
+			self._printTypeError(e, result.json())
 		return response
 
 	def GetMembers(self, circleid: str) -> DtoModels.GetMembersListResponseModel:
@@ -181,12 +193,14 @@ class L360Client:
 			url=self._getUrl("/v3/circles/{}/members".format(circleid)),
 			headers=self._getHeaders(),
 		)
-
-		response = from_dict(
-			data_class=DtoModels.GetMembersListResponseModel,
-			data=result.json(),
-			config=Config(strict_unions_match=False),
-		)
+		try:
+			response = from_dict(
+				data_class=DtoModels.GetMembersListResponseModel,
+				data=result.json(),
+				config=Config(strict_unions_match=False),
+			)
+		except WrongTypeError as e:
+			self._printTypeError(e, result.json())
 		return response
 
 	def GetMember(self, circleid: str, memberid: str) -> DtoModels.Member:
@@ -195,16 +209,19 @@ class L360Client:
 			url=self._getUrl("/v3/circles/{}/members/{}".format(circleid, memberid)),
 			headers=self._getHeaders(),
 		)
-
-		response = from_dict(
-			data_class=DtoModels.Member,
-			data=result.json(),
-			config=Config(strict_unions_match=False),
-		)
+		try:
+			response = from_dict(
+				data_class=DtoModels.Member,
+				data=result.json(),
+				config=Config(strict_unions_match=False),
+			)
+		except WrongTypeError as e:
+			self._printTypeError(e, result.json())
 		return response
 
 	def ForceMemberUpdate(self, circleid: str, memberid: str) -> DtoModels.PollableRequest:
 		session = self._getSession()
+		
 		result = session.post(
 			url=self._getUrl("/v3/circles/{}/members/{}/request".format(circleid, memberid)),
 			headers=self._getHeaders(),
@@ -212,10 +229,17 @@ class L360Client:
 				"type": "location"
 			},
 		)
+		try:
+			response = from_dict(
+				data_class=DtoModels.PollableRequest,
+				data=result.json(),
+				config=Config(strict_unions_match=False),
+			)
+			return response
+		except WrongTypeError as e:
+			self._printTypeError(e, result.json())
 
-		response = from_dict(
-			data_class=DtoModels.PollableRequest,
-			data=result.json(),
-			config=Config(strict_unions_match=False),
-		)
-		return response
+	def _printTypeError(exception: WrongTypeError, payload: str):
+		if (os.environ['PRINT_WRONG_TYPE_ERROR_PAYLOADS']):
+			print(payload)
+		raise exception
