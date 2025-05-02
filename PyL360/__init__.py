@@ -101,7 +101,7 @@ class L360Client:
 			response = from_dict(
 				data_class=DtoModels.AuthenticationResponseDtoModel,
 				data=result.json(),
-				config=Config(strict_unions_match=False),
+				config=Config(strict_unions_match=False, strict=False),
 			)
 		except WrongTypeError as e:
 			self._printTypeError(e, result.json())
@@ -132,7 +132,7 @@ class L360Client:
 			response = from_dict(
 				data_class=DtoModels.GetCirclesResponse,
 				data=result.json(),
-				config=Config(strict_unions_match=False),
+				config=Config(strict_unions_match=False, strict=False),
 			)
 		except WrongTypeError as e:
 			self._printTypeError(e, result.json())
@@ -149,7 +149,7 @@ class L360Client:
 			response = from_dict(
 				data_class=DtoModels.Circle,
 				data=result.json(),
-				config=Config(strict_unions_match=False),
+				config=Config(strict_unions_match=False, strict=False),
 			)
 		except WrongTypeError as e:
 			self._printTypeError(e, result.json())
@@ -165,7 +165,7 @@ class L360Client:
 			response = from_dict(
 				data_class=DtoModels.GetPlacesResponseModel,
 				data=result.json(),
-				config=Config(strict_unions_match=False),
+				config=Config(strict_unions_match=False, strict=False),
 			)
 		except WrongTypeError as e:
 			self._printTypeError(e, result.json())
@@ -181,7 +181,7 @@ class L360Client:
 			response = from_dict(
 				data_class=DtoModels.Place,
 				data=result.json(),
-				config=Config(strict_unions_match=False),
+				config=Config(strict_unions_match=False, strict=False),
 			)
 		except WrongTypeError as e:
 			self._printTypeError(e, result.json())
@@ -197,7 +197,7 @@ class L360Client:
 			response = from_dict(
 				data_class=DtoModels.GetMembersListResponseModel,
 				data=result.json(),
-				config=Config(strict_unions_match=False),
+				config=Config(strict_unions_match=False, strict=False),
 			)
 		except WrongTypeError as e:
 			self._printTypeError(e, result.json())
@@ -213,7 +213,7 @@ class L360Client:
 			response = from_dict(
 				data_class=DtoModels.Member,
 				data=result.json(),
-				config=Config(strict_unions_match=False),
+				config=Config(strict_unions_match=False, strict=False),
 			)
 		except WrongTypeError as e:
 			self._printTypeError(e, result.json())
@@ -233,7 +233,7 @@ class L360Client:
 			response = from_dict(
 				data_class=DtoModels.PollableRequest,
 				data=result.json(),
-				config=Config(strict_unions_match=False),
+				config=Config(strict_unions_match=False, strict=False),
 			)
 			return response
 		except WrongTypeError as e:

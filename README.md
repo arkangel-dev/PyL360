@@ -21,7 +21,10 @@ if __name__ == '__main__':
 
 	for circle in circles:
 		for p in circle.GetDetails().members:
-			print("{} is at ({},{})".format(p.firstName, p.location.latitude, p.location.longitude))
+			if (p.location is not None):
+				print("{} is at ({},{})".format(p.firstName, p.location.latitude, p.location.longitude))
+			else:
+				print("{} cannot be located".format(p.firstName))
 
 ```
 
@@ -30,16 +33,19 @@ Example to print out a list of all the places in all your circles along with the
 from PyL360 import L360Client
 
 if __name__ == '__main__':
-    client = L360Client(
-        username="sammy@gmail.com",
-        password="my-secure-password"
-    )
+	client = L360Client(
+		username="sammy@gmail.com",
+		password="my-secure-password"
+	)
 
-    client.Authenticate()
-    circles = client.GetCircles().circles
+	client.Authenticate()
+	circles = client.GetCircles().circles
 
-    for circle in circles:
-        for place in client.GetPlaces(circle.id).places:
-            print('{} is loacated at ({}, {})'.format(place.name, place.latitude, place.longitude))
+	for circle in circles:
+		for place in client.GetPlaces(circle.id).places:
+			if (p.location is not None):
+					print("{} is at ({},{})".format(p.firstName, p.location.latitude, p.location.longitude))
+				else:
+					print("{} cannot be located".format(p.firstName))
 ```
 

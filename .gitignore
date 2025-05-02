@@ -8,6 +8,8 @@ __pycache__/
 dev-test.py
 l360.token
 
+.vscode
+
 # Distribution / packaging
 .Python
 build/
