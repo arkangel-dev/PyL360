@@ -1,9 +1,9 @@
-import PyL360
+from PyL360 import L360Client
 import os 
 
 if __name__ == '__main__':
 	try:
-		client = PyL360.L360Client(
+		client = L360Client(
 			username=os.getenv("L360_USERNAME"),
 			password=os.getenv("L360_PASSWORD"),
 		)
