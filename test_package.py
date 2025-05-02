@@ -13,10 +13,7 @@ if __name__ == '__main__':
 
 		for circle in circles:
 			for p in circle.GetDetails().members:
-				if (p.location is not None):
-					print("{} is at ({},{})".format(p.firstName, p.location.latitude, p.location.longitude))
-				else:
-					print("{} cannot be located".format(p.firstName))
+				pass
 		exit(0)
 	except Exception as e:
 		print("An error occurred: {}".format(e))
