@@ -31,4 +31,4 @@ jobs:
           L360_USERNAME: ${{ secrets.L360_USERNAME }}
           L360_PASSWORD: ${{ secrets.L360_PASSWORD }}
         run: |
-          python c:\\Users\\samra\\source\\repos\\PyL360\\test_package.py
+          python test_package.py
