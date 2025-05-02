@@ -63,12 +63,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          bump2version patch --allow-dirty
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Bump version [skip ci]"
-          git push origin main
+          bump2version patch --allow-dirty
+          git push
 
       - name: Build the package
         run: |
